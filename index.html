@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app" style="background-color: #e5e5e5;">
+    <div class="container p-3">
+      <h1 class="h3 text-primary d-inline-block">匯率計算機</h1> <button type="button" class="btn btn-sm btn-secondary"
+        @click="reset">重置</button>
+      <p class="text-secondary">請輸入任一欄位後點擊別處，可取得其他幣別換算結果</p>
+      <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+        <div class="col">
+          <label for="twd">新台幣(TWD)</label>
+          <input type="number" name="" id="twd" min="0.0001" step="0.0001" v-model.lazy="twd" required>
+        </div>
+        <div class="col">
+          <label for="jpy">日幣(JPY)</label>
+          <input type="number" name="" id="jpy" min="0.0001" step="0.0001" v-model.lazy="jpy" required>
+        </div>
+        <div class="col">
+          <label for="usd">美金(USD)</label>
+          <input type="number" name="" id="usd" min="0.0001" step="0.0001" v-model.lazy="usd" required>
+        </div>
+        <div class="col">
+          <label for="eur">歐元(EUR)</label>
+          <input type="number" name="" id="eur" min="0.0001" step="0.0001" v-model.lazy="eur" required>
+        </div>
+        <div class="col">
+          <label for="gbp">英鎊(GBP)</label>
+          <input type="number" name="" id="gbp" min="0.0001" step="0.0001" v-model.lazy="gbp" required>
+        </div>
+        <div class="col">
+          <label for="cny">人民幣(CNY)</label>
+          <input type="number" name="" id="cny" min="0.0001" step="0.0001" v-model.lazy="cny" required>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row row-cols-1 row-cols-md-2 g-3">
+        <div class="col">
+          <button type="button" :class="[ rateCustomStatus ? 'btn btn-outline-danger' : 'btn btn-outline-success']"
+            @click="rateCustom" v-html="rateCustomBtn"></button>
+        </div>
+        <div class="col">
+          <label for="twd2jpy">日幣(JPY)</label>
+          <input type="number" name="" id="twd2jpy" min="0.0001" step="0.0001" v-model.lazy="twd2jpy"
+            :disabled="rateCustomStatus">
+        </div>
+        <div class="col">
+          <label for="twd2usd">美金(USD)</label>
+          <input type="number" name="" id="twd2usd" min="0.0001" step="0.0001" v-model.lazy="twd2usd"
+            :disabled="rateCustomStatus">
+        </div>
+        <div class="col">
+          <label for="twd2eur">歐元(EUR)</label>
+          <input type="number" name="" id="twd2eur" min="0.0001" step="0.0001" v-model.lazy="twd2eur"
+            :disabled="rateCustomStatus">
+        </div>
+        <div class="col">
+          <label for="twd2gbp">英鎊(GBP)</label>
+          <input type="number" name="" id="twd2gbp" min="0.0001" step="0.0001" v-model.lazy="twd2gbp"
+            :disabled="rateCustomStatus">
+        </div>
+        <div class="col">
+          <label for="twd2cny">人民幣(CNY)</label>
+          <input type="number" name="" id="twd2cny" min="0.0001" step="0.0001" v-model.lazy="twd2cny"
+            :disabled="rateCustomStatus">
+        </div>
+        <div class="col">
+          <p>備註：匯率來源&時間：奇摩股市2025/5/9</p>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const calculator = {
+      data() {
+        return {
+          rateCustomStatus: true,
+          rateCustomBtn: `點我修改對台幣匯率`,
+          twd: 1,
+          twd2jpy: 0.2122,
+          twd2usd: 30.58,
+          twd2eur: 34.5999,
+          twd2gbp: 41.08,
+          twd2cny: 4.248,
+        }
+      },
+      created() {
+      },
+      computed: {
+        jpy: {
+          get() {
+            return Number.parseFloat(Number(this.twd) / this.twd2jpy).toFixed(3)
+          },
+          set(val) {
+            this.twd = Number.parseFloat(Number(val) * this.twd2jpy).toFixed(3)
+          }
+        },
+        usd: {
+          get() {
+            return Number.parseFloat(Number(this.twd) / this.twd2usd).toFixed(2)
+          },
+          set(val) {
+            this.twd = Number.parseFloat(Number(val) * this.twd2usd).toFixed(2)
+          }
+        },
+        eur: {
+          get() {
+            return Number.parseFloat(Number(this.twd) / this.twd2eur).toFixed(2)
+          },
+          set(val) {
+            this.twd = Number.parseFloat(Number(val) * this.twd2eur).toFixed(2)
+          }
+        },
+        gbp: {
+          get() {
+            return Number.parseFloat(Number(this.twd) / this.twd2gbp).toFixed(2)
+          },
+          set(val) {
+            this.twd = Number.parseFloat(Number(val) * this.twd2gbp).toFixed(2)
+          }
+        },
+        cny: {
+          get() {
+            return Number.parseFloat(Number(this.twd) / this.twd2cny).toFixed(2)
+          },
+          set(val) {
+            this.twd = Number.parseFloat(Number(val) * this.twd2cny).toFixed(2)
+          }
+        },
+      },
+      methods: {
+        reset() {
+          this.twd = 1
+        },
+        rateCustom() {
+          if (this.rateCustomStatus === false) {
+            this.rateCustomStatus = true
+            this.rateCustomBtn = `點我修改對台幣匯率`
+            this.twd = 1
+            this.twd2jpy = 0.2122
+            this.twd2usd = 30.58
+            this.twd2eur = 34.5999
+            this.twd2gbp = 41.08
+            this.twd2cny = 4.248
+
+          } else {
+            this.rateCustomStatus = false
+            this.rateCustomBtn = `點我還原對台幣預設匯率`
+          }
+        }
+      },
+    }
+
+    Vue.createApp(calculator).mount('#app')
+
+  </script>
+</body>
+
+</html>
