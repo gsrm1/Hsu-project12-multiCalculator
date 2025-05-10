@@ -13,10 +13,13 @@
 <body>
   <div id="app" style="background-color: #e5e5e5;">
     <div class="container p-3">
-      <h1 class="h3 text-primary d-inline-block">匯率計算機</h1> <button type="button" class="btn btn-sm btn-secondary"
-        @click="reset">重置計算機</button>
-      <p class="text-secondary">輸入任一欄位後點擊別處，可取得其他幣別換算結果</p>
-      <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+      <div class="d-flex align-items-center">
+
+        <h1 class="h2 text-primary d-inline-block mb-0">匯率計算機<span class="h6 text-success me-2">測試版</span></h1> <button type="button" class="btn btn-sm btn-secondary"
+          @click="reset">重置計算機</button>
+      </div>
+      <p class="text-secondary text-truncate">輸入任一欄後點擊別處，可取得其他幣別換算</p>
+      <div class="row row-cols-1 row-cols-md-2 g-2">
         <div class="col">
           <label for="twd">新台幣(TWD)</label>
           <input type="number" name="" id="twd" min="0.0001" step="0.0001" v-model.lazy="twd" required>
@@ -45,9 +48,9 @@
 
       <hr>
 
-      <div class="row row-cols-1 row-cols-md-2 g-3">
+      <div class="row row-cols-1 row-cols-md-2 g-2">
         <div class="col">
-          <button type="button" :class="[ rateCustomStatus ? 'btn btn-outline-danger' : 'btn btn-outline-success']"
+          <button type="button" :class="[ rateCustomStatus ? 'btn btn-sm btn-outline-danger' : 'btn btn-sm btn-outline-success']"
             @click="rateCustom" v-html="rateCustomBtn"></button>
         </div>
         <div class="col">
