@@ -14,8 +14,8 @@
   <div id="app" style="background-color: #e5e5e5;">
     <div class="container p-3">
       <h1 class="h3 text-primary d-inline-block">匯率計算機</h1> <button type="button" class="btn btn-sm btn-secondary"
-        @click="reset">重置</button>
-      <p class="text-secondary">請輸入任一欄位後點擊別處，可取得其他幣別換算結果</p>
+        @click="reset">重置計算機</button>
+      <p class="text-secondary">輸入任一欄位後點擊別處，可取得其他幣別換算結果</p>
       <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
         <div class="col">
           <label for="twd">新台幣(TWD)</label>
@@ -76,7 +76,7 @@
             :disabled="rateCustomStatus">
         </div>
         <div class="col">
-          <p>備註：匯率來源&時間：奇摩股市2025/5/9</p>
+          <p>備註：匯率來源：奇摩股市2025/5/9</p>
         </div>
 
 
@@ -91,7 +91,7 @@
       data() {
         return {
           rateCustomStatus: true,
-          rateCustomBtn: `點我修改對台幣匯率`,
+          rateCustomBtn: `修改對台幣匯率`,
           twd: 1,
           twd2jpy: 0.2122,
           twd2usd: 30.58,
@@ -151,7 +151,7 @@
         rateCustom() {
           if (this.rateCustomStatus === false) {
             this.rateCustomStatus = true
-            this.rateCustomBtn = `點我修改對台幣匯率`
+            this.rateCustomBtn = `修改對台幣匯率`
             this.twd = 1
             this.twd2jpy = 0.2122
             this.twd2usd = 30.58
@@ -161,7 +161,7 @@
 
           } else {
             this.rateCustomStatus = false
-            this.rateCustomBtn = `點我還原對台幣預設匯率`
+            this.rateCustomBtn = `重置計算機與預設匯率`
           }
         }
       },
